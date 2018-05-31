@@ -3,6 +3,7 @@ package com.nia.services.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
@@ -10,8 +11,11 @@ public class UserRegister {
 	
 	@Id
 	@Column(name = "ID")
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
+	@Column(name = "REGISTRATION_ID")
+	private String registrationId;
 
 	@Column(name = "FIRST_NAME")
 	private String firstName;
@@ -159,4 +163,11 @@ public class UserRegister {
 	 * @JoinColumn(name = "USER_ID") private ApplicationUser applicationUser;
 	 */
 
+	public String getRegistrationId() {
+		return registrationId;
+	}
+
+	public void setRegistrationId(String registrationId) {
+		this.registrationId = registrationId;
+	}
 }
