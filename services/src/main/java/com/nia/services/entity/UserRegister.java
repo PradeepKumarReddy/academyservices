@@ -6,13 +6,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class UserRegister {
 	
 	@Id
 	@Column(name = "ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Long id;
 	
 	@Column(name = "REGISTRATION_ID")
 	private String registrationId;
@@ -53,11 +56,11 @@ public class UserRegister {
 	@Column(name = "PERMANENT_PINCODE")
 	private String permanentPincode;
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -170,4 +173,16 @@ public class UserRegister {
 	public void setRegistrationId(String registrationId) {
 		this.registrationId = registrationId;
 	}
+
+	@Override
+	public String toString() {
+		return "UserRegister [id=" + id + ", registrationId=" + registrationId + ", firstName=" + firstName
+				+ ", lastName=" + lastName + ", fatherName=" + fatherName + ", gender=" + gender + ", dob=" + dob
+				+ ", email=" + email + ", residentialAddress=" + residentialAddress + ", residentialPincode="
+				+ residentialPincode + ", residentialState=" + residentialState + ", permanentAddress="
+				+ permanentAddress + ", permanentState=" + permanentState + ", permanentPincode=" + permanentPincode
+				+ "]";
+	}
+	
+	
 }

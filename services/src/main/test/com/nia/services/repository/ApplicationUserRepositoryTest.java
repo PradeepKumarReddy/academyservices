@@ -4,6 +4,9 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
+
+import static org.junit.Assert.assertNotNull;
+
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,7 +23,7 @@ public class ApplicationUserRepositoryTest {
 	@Autowired private ApplicationUserRepository userRepo;
 	@Autowired private UserRegisterRepository userRegisterRepo;
 
-    @Test
+    //@Test
     public void testInsert() {
         ApplicationUser appUser = new ApplicationUser();
         appUser.setUsername("pradeep");
@@ -39,5 +42,19 @@ public class ApplicationUserRepositoryTest {
                                                   String.class,
                                                   continentInserted.getId());
         assertThat(name, equalTo("another"));*/
+    }
+    
+    @Test
+    public void testInsertUserRegister() {
+    	ApplicationUser appUser = new ApplicationUser();
+        appUser.setUsername("pradeep");
+        appUser.setPassword("test");
+        UserRegister userRegister = new UserRegister();
+        userRegister.setFirstName("PRADEEP");
+        userRegister.setLastName("N");
+        userRegister.setEmail("narreddyp.gmail.com");
+        userRegister = userRegisterRepo.save(userRegister);
+        System.out.println(userRegister.toString());
+    	assertNotNull(userRegister.getRegistrationId());
     }
 }

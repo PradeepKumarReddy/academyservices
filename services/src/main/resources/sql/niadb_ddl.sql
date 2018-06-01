@@ -14,6 +14,7 @@ USE `niadb`;
 CREATE TABLE `hibernate_sequence` (
   `next_val` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 CREATE TABLE `user_register` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `dob` varchar(255) DEFAULT NULL,
