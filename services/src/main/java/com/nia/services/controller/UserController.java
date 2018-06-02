@@ -7,24 +7,31 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nia.services.entity.ApplicationUser;
+import com.nia.services.entity.UserRegister;
 import com.nia.services.repository.ApplicationUserRepository;
+import com.nia.services.repository.UserRegisterRepository;
 
 @RestController
 @RequestMapping("/users")
 public class UserController {
-
+	
+	private UserRegisterRepository registerRepository;
     private ApplicationUserRepository applicationUserRepository;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public UserController(ApplicationUserRepository applicationUserRepository,
+    public UserController(ApplicationUserRepository applicationUserRepository, UserRegisterRepository registerRepository,
                           BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.applicationUserRepository = applicationUserRepository;
+        this.registerRepository = registerRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     @PostMapping("/sign-up")
-    public void signUp(@RequestBody ApplicationUser user) {
+    public ApplicationUser signUp(@RequestBody ApplicationUser user) {
+    	UserRegister userRegister = registerRepository.findByRegistrationId(user.getUsername());
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        applicationUserRepository.save(user);
+        user.setUserRegister(userRegister);
+        user = applicationUserRepository.save(user);
+        return user;
     }
 }

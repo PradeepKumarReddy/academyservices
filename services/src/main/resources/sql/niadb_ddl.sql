@@ -52,3 +52,36 @@ CREATE TRIGGER registration_auto_id BEFORE INSERT ON user_register
        WHERE TABLE_SCHEMA = DATABASE() AND 
        TABLE_NAME = 'user_register'), 4, '0'));
        
+CREATE TABLE `exam` (
+  `exam_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `exam_date` datetime DEFAULT NULL,
+  `exam_description` varchar(255) DEFAULT NULL,
+  `exam_name` datetime DEFAULT NULL,
+  PRIMARY KEY (`exam_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `question` (
+  `question_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `question_desc` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`question_id`)
+) ENGINE=InnoDB  AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `question_option` (
+  `option_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `option_desc` varchar(255) DEFAULT NULL,
+  `question_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`option_id`),
+  KEY `FKmmdv54rmm5hkgxbn1008ix87n` (`question_id`),
+  CONSTRAINT `FKmmdv54rmm5hkgxbn1008ix87n` FOREIGN KEY (`question_id`) REFERENCES `question` (`question_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `question_option` (
+  `option_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `option_desc` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`option_id`),
+  CONSTRAINT `FKdo9ikkb6cfaft2eic8ry6bc5` FOREIGN KEY (`option_id`) REFERENCES `question` (`question_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+
+
