@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
@@ -28,7 +29,11 @@ public class QuestionOption {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "question_id")
+	@JsonBackReference
     private Question question;
+	
+	@Column(name="is_answer")
+	private boolean isAnswer;
 
 	
 	public Long getId() {
@@ -53,6 +58,19 @@ public class QuestionOption {
 
 	public void setQuestion(Question question) {
 		this.question = question;
+	}
+	
+	public boolean isAnswer() {
+		return isAnswer;
+	}
+
+	public void setAnswer(boolean isAnswer) {
+		this.isAnswer = isAnswer;
+	}
+
+	@Override
+	public String toString() {
+		return "QuestionOption [id=" + id + ", optionDesc=" + optionDesc + ", question=" + question + "]";
 	}
 	
 	

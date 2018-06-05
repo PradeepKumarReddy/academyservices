@@ -1,15 +1,20 @@
 package com.nia.services.entity;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name="EXAM")
@@ -28,7 +33,18 @@ public class Exam {
 	private Date examDate;
 	
 	@Column(name = "exam_name")
-	private Date examName;
+	private String examName;
+	
+	@Column(name="is_active")
+	private boolean isActive;
+	
+	@OneToMany(
+			cascade = CascadeType.ALL, 
+			orphanRemoval = true,
+			mappedBy="exam"
+    )
+	@JsonManagedReference
+	private Set<Question> questions = new HashSet<>();
 
 	public Long getId() {
 		return id;
@@ -54,12 +70,28 @@ public class Exam {
 		this.examDate = examDate;
 	}
 
-	public Date getExamName() {
+	public String getExamName() {
 		return examName;
 	}
 
-	public void setExamName(Date examName) {
+	public void setExamName(String examName) {
 		this.examName = examName;
+	}
+
+	public boolean isActive() {
+		return isActive;
+	}
+
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
+	}
+
+	public Set<Question> getQuestions() {
+		return questions;
+	}
+
+	public void setQuestions(Set<Question> questions) {
+		this.questions = questions;
 	}
 	
 	

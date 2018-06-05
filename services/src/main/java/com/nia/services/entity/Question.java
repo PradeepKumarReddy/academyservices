@@ -6,13 +6,18 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name="QUESTION")
@@ -32,7 +37,17 @@ public class Question {
 			orphanRemoval = true,
 			mappedBy="question"
     )
+	@JsonManagedReference
 	private Set<QuestionOption> options = new HashSet<>();
+	
+	@Column(name="is_active")
+	private boolean isActive;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "exam_id")
+	@JsonBackReference
+    private Exam exam;
+	
 
 	public Long getId() {
 		return id;
@@ -56,6 +71,29 @@ public class Question {
 
 	public void setOptions(Set<QuestionOption> options) {
 		this.options = options;
+	}
+	
+	
+	public boolean isActive() {
+		return isActive;
+	}
+
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
+	}
+
+	@Override
+	public String toString() {
+		return "Question [id=" + id + ", questionDesc=" + questionDesc + ", options=" + options + ", getId()=" + getId()
+				+ ", getQuestionDesc()=" + getQuestionDesc() + ", getOptions()=" + getOptions() + "]";
+	}
+
+	public Exam getExam() {
+		return exam;
+	}
+
+	public void setExam(Exam exam) {
+		this.exam = exam;
 	}
 
 	
