@@ -31,10 +31,12 @@ public class QuestionController {
 		
 		for (QuestionOption option2 : question.getOptions()) {
 			QuestionOption questionOption = new QuestionOption();
+			questionOption.setAnswer(option2.isAnswer());
 			questionOption.setOptionDesc(option2.getOptionDesc());
 			questionOption.setQuestion(question2);
 			question2.getOptions().add(questionOption);
 		}
+		
 		
 		return repo.save(question2);
 	}

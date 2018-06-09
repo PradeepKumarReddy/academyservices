@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.ColumnDefault;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -93,7 +95,5 @@ public class Exam {
 	public void setQuestions(Set<Question> questions) {
 		this.questions = questions;
 	}
-	
-	
 	
 }

@@ -13,29 +13,27 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-
 @Entity
-@Table(name="QUESTION_OPTION")
+@Table(name="USER_RESPONSE")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class QuestionOption {
+public class UserResponse {
 
 	@Id
-	@Column(name = "option_id")
+	@Column(name = "USER_RESPONSE_ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name="option_desc")
-	private String optionDesc;
-	
 	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "question_id")
+    @JoinColumn(name = "USER_EXAM_ID")
 	@JsonBackReference
-    private Question question;
+    private UserExam userexam;
 	
-	@Column(name="is_answer")
-	private boolean answer;
+	@Column(name = "QUESTION_ID")
+	private Long questionId;
+	
+	@Column(name = "OPTION_ID")
+	private Long optoinId;
 
-	
 	public Long getId() {
 		return id;
 	}
@@ -44,35 +42,28 @@ public class QuestionOption {
 		this.id = id;
 	}
 
-	public String getOptionDesc() {
-		return optionDesc;
+	public Long getQuestionId() {
+		return questionId;
 	}
 
-	public void setOptionDesc(String optionDesc) {
-		this.optionDesc = optionDesc;
+	public void setQuestionId(Long questionId) {
+		this.questionId = questionId;
 	}
 
-	public Question getQuestion() {
-		return question;
+	public Long getOptoinId() {
+		return optoinId;
 	}
 
-	public void setQuestion(Question question) {
-		this.question = question;
-	}
-	
-	
-	public boolean isAnswer() {
-		return answer;
+	public void setOptoinId(Long optoinId) {
+		this.optoinId = optoinId;
 	}
 
-	public void setAnswer(boolean answer) {
-		this.answer = answer;
+	public UserExam getUserexam() {
+		return userexam;
 	}
 
-	@Override
-	public String toString() {
-		return "QuestionOption [id=" + id + ", optionDesc=" + optionDesc + ", question=" + question + "]";
+	public void setUserexam(UserExam userexam) {
+		this.userexam = userexam;
 	}
-	
 	
 }
