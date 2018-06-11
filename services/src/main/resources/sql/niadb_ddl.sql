@@ -103,3 +103,12 @@ CREATE TABLE `user_response` (
 
 --SET SQL_SAFE_UPDATES = 0;
 
+--Delete script
+
+delete from user_response;
+delete from user_exam;
+
+delete from question_option;
+delete from question;
+delete from exam where exam_id != 1
+
