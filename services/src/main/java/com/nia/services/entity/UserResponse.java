@@ -32,7 +32,7 @@ public class UserResponse {
 	private Long questionId;
 	
 	@Column(name = "OPTION_ID")
-	private Long optoinId;
+	private Long optionId;
 
 	public Long getId() {
 		return id;
@@ -50,12 +50,12 @@ public class UserResponse {
 		this.questionId = questionId;
 	}
 
-	public Long getOptoinId() {
-		return optoinId;
+	public Long getOptionId() {
+		return optionId;
 	}
 
-	public void setOptoinId(Long optoinId) {
-		this.optoinId = optoinId;
+	public void setOptionId(Long optionId) {
+		this.optionId = optionId;
 	}
 
 	public UserExam getUserexam() {

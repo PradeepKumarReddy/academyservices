@@ -35,7 +35,6 @@ public class QuestionOption {
 	@Column(name="is_answer")
 	private boolean answer;
 
-	
 	public Long getId() {
 		return id;
 	}

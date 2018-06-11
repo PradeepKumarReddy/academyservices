@@ -1,7 +1,7 @@
 package com.nia.services.repository;
-import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertNotNull;
+
+import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -38,12 +38,12 @@ public class UserExamRepositoryTest {
 		
 		UserResponse response = new UserResponse();
 		response.setQuestionId(1L);
-		response.setOptoinId(1L);
+		response.setOptionId(1L);
 		response.setUserexam(userExam);
 		
 		UserResponse response1 = new UserResponse();
 		response1.setQuestionId(1L);
-		response1.setOptoinId(1L);
+		response1.setOptionId(1L);
 		response1.setUserexam(userExam);
 		
 		userExam.getUserResponses().add(response);
@@ -55,5 +55,10 @@ public class UserExamRepositoryTest {
 		
 	}
 	
+	@Test
+	public void testLoad() {
+		List<UserExam> userExams = userExamRepository.getByIdAndUserName(1L, "NA0002");
+		assertNotNull(userExams);
+	}
 
 }
