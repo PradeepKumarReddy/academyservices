@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -96,8 +97,14 @@ public class Question {
 		this.exam = exam;
 	}
 
+	@Transient
 	private String resultDesc; 
+
+	@Transient
 	private boolean correctAnswered = false;
+
+	@Transient
+	private boolean answered = false;
 	
 	public void setResultDesc(String value) {
 		this.resultDesc = value;
@@ -113,6 +120,14 @@ public class Question {
 
 	public String getResultDesc() {
 		return resultDesc;
+	}
+
+	public boolean isAnswered() {
+		return answered;
+	}
+
+	public void setAnswered(boolean answered) {
+		this.answered = answered;
 	}
 
 	

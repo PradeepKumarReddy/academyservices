@@ -1,6 +1,7 @@
 package com.nia.services.controller;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -49,22 +50,38 @@ public class UserExamController {
 		
 		Exam exam = repo.getOne(userExam.getExamId());
 		
-		for(Question ques : exam.getQuestions()) {
+		
 			
 			for(UserResponse response : resultExam.getUserResponses()) {
-				if(response.getOptionId() != null && response.getQuestionId() == ques.getId()) {
-					ques.setResultDesc("Your Answer is Correct");
-					ques.setCorrectAnswered(true);
-					for(QuestionOption opt : ques.getOptions()) {
+				
+				Question resQues = getQestionById(response.getQuestionId(), exam.getQuestions());
+				
+				
+				if(response.getOptionId() != null && response.getQuestionId() == resQues.getId()) {
+					//ques.setResultDesc("Your Answer is Correct");
+					resQues.setAnswered(true);
+					//resQues.setCorrectAnswered(true);
+					for(QuestionOption opt : resQues.getOptions()) {
 						if (response.getOptionId() == opt.getId()) {
 							opt.setUserSelect(true);
+						}
+						if(opt.isAnswer() && opt.getId().equals(response.getOptionId())) {
+							resQues.setCorrectAnswered(true);
 						}
 					}
 				}
 			}
-		}
 		
 		return exam;
+	}
+	
+	private Question getQestionById(Long quesId, Set<Question> questions) {
+		for (Question ques : questions) {
+			if(ques.getId().equals(quesId)) 
+				return ques;
+		}
+		
+		return null;
 	}
 	
 	
