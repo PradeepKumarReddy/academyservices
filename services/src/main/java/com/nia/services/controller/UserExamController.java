@@ -5,13 +5,17 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nia.services.entity.Exam;
+import com.nia.services.entity.Question;
+import com.nia.services.entity.QuestionOption;
 import com.nia.services.entity.UserExam;
+import com.nia.services.entity.UserResponse;
+import com.nia.services.repository.ExamRepository;
 import com.nia.services.repository.UserExamRepository;
 
 @RestController
@@ -20,6 +24,9 @@ public class UserExamController {
 	
 	@Autowired
 	UserExamRepository userExamRepository;
+	
+	@Autowired
+	private ExamRepository repo; 
 	
 	@GetMapping("/userExam/{examId}/{username}")
 	public UserExam getUserExam(@RequestParam Long examId, @RequestParam String username) {
@@ -35,11 +42,31 @@ public class UserExamController {
 	}
 	
 	@PostMapping("/userExam/update")
-	public UserExam updateUserExam(@RequestBody UserExam userExam)
+	public Exam updateUserExam(@RequestBody UserExam userExam)
 	{
 		System.out.println("updateUserExam called");
-		return userExamRepository.save(userExam);
-		//turn null;
+		UserExam resultExam = userExamRepository.save(userExam);
+		
+		Exam exam = repo.getOne(userExam.getExamId());
+		
+		for(Question ques : exam.getQuestions()) {
+			
+			for(UserResponse response : resultExam.getUserResponses()) {
+				if(response.getOptionId() != null && response.getQuestionId() == ques.getId()) {
+					ques.setResultDesc("Your Answer is Correct");
+					ques.setCorrectAnswered(true);
+					for(QuestionOption opt : ques.getOptions()) {
+						if (response.getOptionId() == opt.getId()) {
+							opt.setUserSelect(true);
+						}
+					}
+				}
+			}
+		}
+		
+		return exam;
 	}
+	
+	
 
 }

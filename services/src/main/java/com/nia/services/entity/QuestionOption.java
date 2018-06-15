@@ -73,5 +73,15 @@ public class QuestionOption {
 		return "QuestionOption [id=" + id + ", optionDesc=" + optionDesc + ", question=" + question + "]";
 	}
 	
+	private boolean userSelect;
+
+	public boolean isUserSelect() {
+		return userSelect;
+	}
+
+	public void setUserSelect(boolean userSelect) {
+		this.userSelect = userSelect;
+	}
+
 	
 }

@@ -96,5 +96,24 @@ public class Question {
 		this.exam = exam;
 	}
 
+	private String resultDesc; 
+	private boolean correctAnswered = false;
+	
+	public void setResultDesc(String value) {
+		this.resultDesc = value;
+	}
+
+	public boolean isCorrectAnswered() {
+		return correctAnswered;
+	}
+
+	public void setCorrectAnswered(boolean correctAnswered) {
+		this.correctAnswered = correctAnswered;
+	}
+
+	public String getResultDesc() {
+		return resultDesc;
+	}
+
 	
 }
