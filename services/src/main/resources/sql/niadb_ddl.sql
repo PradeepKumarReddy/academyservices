@@ -47,7 +47,7 @@ CREATE TABLE `application_user` (
 
 CREATE TRIGGER registration_auto_id BEFORE INSERT ON user_register
        FOR EACH ROW
-       SET NEW.registration_id = CONCAT("NA",LPAD((SELECT AUTO_INCREMENT 
+       SET NEW.registration_id = CONCAT("NAC2018",LPAD((SELECT AUTO_INCREMENT 
        FROM information_schema.TABLES 
        WHERE TABLE_SCHEMA = DATABASE() AND 
        TABLE_NAME = 'user_register'), 4, '0'));
