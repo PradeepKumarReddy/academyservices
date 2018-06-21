@@ -45,6 +45,8 @@ CREATE TABLE `application_user` (
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 
+
+
 CREATE TRIGGER registration_auto_id BEFORE INSERT ON user_register
        FOR EACH ROW
        SET NEW.registration_id = CONCAT("NAC2018",LPAD((SELECT AUTO_INCREMENT 
@@ -99,6 +101,39 @@ CREATE TABLE `user_response` (
   KEY `FKap529hul3xej6o8cn27ye9wq4` (`user_exam_id`),
   CONSTRAINT `FKap529hul3xej6o8cn27ye9wq4` FOREIGN KEY (`user_exam_id`) REFERENCES `user_exam` (`user_exam_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `privilege` (
+  `id` bigint(20) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `role` (
+  `id` bigint(20) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `roles_privileges` (
+  `role_id` bigint(20) NOT NULL,
+  `privilege_id` bigint(20) NOT NULL,
+  KEY `FK5yjwxw2gvfyu76j3rgqwo685u` (`privilege_id`),
+  KEY `FK9h2vewsqh8luhfq71xokh4who` (`role_id`),
+  CONSTRAINT `FK9h2vewsqh8luhfq71xokh4who` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`),
+  CONSTRAINT `FK5yjwxw2gvfyu76j3rgqwo685u` FOREIGN KEY (`privilege_id`) REFERENCES `privilege` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `users_roles` (
+  `user_id` bigint(20) NOT NULL,
+  `role_id` bigint(20) NOT NULL,
+  KEY `FKt4v0rrweyk393bdgt107vdx0x` (`role_id`),
+  KEY `FKrygrggwd04p6r14ie18e2u7iu` (`user_id`),
+  CONSTRAINT `FKrygrggwd04p6r14ie18e2u7iu` FOREIGN KEY (`user_id`) REFERENCES `application_user` (`id`),
+  CONSTRAINT `FKt4v0rrweyk393bdgt107vdx0x` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 
 --SET SQL_SAFE_UPDATES = 0;
